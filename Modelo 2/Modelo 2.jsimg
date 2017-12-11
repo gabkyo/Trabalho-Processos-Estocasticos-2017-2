@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<archive xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Modelo 2.jsimg" timestamp="Mon Dec 11 15:48:29 BRST 2017" xsi:noNamespaceSchemaLocation="Archive.xsd">
+<sim disableStatisticStop="false" logDecimalSeparator="," logDelimiter=";" logPath="/home/2014102150/Área de Trabalho/PROC ESTOS/Modelo 2" logReplaceMode="0" maxSamples="1000000" name="Modelo 2.jsimg" polling="1.0" xsi:noNamespaceSchemaLocation="SIMmodeldefinition.xsd">
+<userClass name="CLientes" priority="0" referenceSource="Clientes" type="open"/>
+<node name="Saida">
+<section className="JobSink"/>
+</node>
+<node name="Serviço">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>10</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>CLientes</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>CLientes</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>CLientes</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServiceStrategy">
+<refClass>CLientes</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>2.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>CLientes</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Clientes">
+<section className="RandomSource">
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServiceStrategy">
+<refClass>CLientes</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>4.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="ServiceTunnel"/>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>CLientes</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<measure alpha="0.01" name="Serviço_Drop Rate" nodeType="station" precision="0.03" referenceNode="Serviço" referenceUserClass="" type="Drop Rate" verbose="true"/>
+<measure alpha="0.01" name="Serviço_Number of Customers" nodeType="station" precision="0.03" referenceNode="Serviço" referenceUserClass="" type="Number of Customers" verbose="true"/>
+<measure alpha="0.01" name="Serviço_Queue Time" nodeType="station" precision="0.03" referenceNode="Serviço" referenceUserClass="" type="Queue Time" verbose="true"/>
+<measure alpha="0.01" name="System Response Time" nodeType="" precision="0.03" referenceNode="" referenceUserClass="" type="System Response Time" verbose="true"/>
+<connection source="Serviço" target="Saida"/>
+<connection source="Clientes" target="Serviço"/>
+</sim>
+<jmodel xsi:noNamespaceSchemaLocation="JModelGUI.xsd">
+<userClass color="#FF0000FF" name="CLientes"/>
+<station name="Saida">
+<position rotate="false" x="311.0" y="94.0"/>
+</station>
+<station name="Serviço">
+<position rotate="false" x="150.0" y="91.0"/>
+</station>
+<station name="Clientes">
+<position rotate="false" x="25.0" y="94.0"/>
+</station>
+</jmodel>
+<results elapsedTime="5869" logDecimalSeparator="," logDelimiter=";" pollingInterval="1.0" xsi:noNamespaceSchemaLocation="Results.xsd">
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="1235" finalValue="2.009303266845129" logFile="/home/2014102150/Área de Trabalho/PROC ESTOS/Modelo 2/Serviço_Drop Rate.csv" name="Serviço_Drop Rate" nodeType="station" precision="0.03" referenceClass="" referenceStation="Serviço" state="1" type="6">
+<sample lastIntervalAvgValue="2.1207694286189036" meanValue="2.1207694286189036" simulationTime="1962.0237560241258"/>
+<sample lastIntervalAvgValue="2.0325252659269704" lowerBound="1.9873481810368885" meanValue="2.1038420610449386" simulationTime="4938.61652041507" upperBound="2.2348435636635435"/>
+<sample lastIntervalAvgValue="1.9752586840076498" lowerBound="1.9155617175204125" meanValue="2.030392336940001" simulationTime="7886.078565329412" upperBound="2.1598681981396575"/>
+<sample lastIntervalAvgValue="1.917669791416233" lowerBound="1.9155617175204125" meanValue="2.030392336940001" simulationTime="10230.590649800235" upperBound="2.1598681981396575"/>
+<sample lastIntervalAvgValue="2.0485971196326225" lowerBound="1.9047431299040303" meanValue="1.9829739534193218" simulationTime="12285.167393886844" upperBound="2.0679061407595096"/>
+<sample lastIntervalAvgValue="2.029034886533317" lowerBound="1.9583165649104939" meanValue="2.009303266845129" simulationTime="20888.765151550808" upperBound="2.063015919675448"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="28160" discardedSamples="3455" finalValue="9.022237058390749" logFile="/home/2014102150/Área de Trabalho/PROC ESTOS/Modelo 2/Serviço_Number of Customers.csv" name="Serviço_Number of Customers" nodeType="station" precision="0.03" referenceClass="" referenceStation="Serviço" state="1" type="0">
+<sample lastIntervalAvgValue="9.088035592199535" meanValue="9.088035592199535" simulationTime="1962.3945409431078"/>
+<sample lastIntervalAvgValue="9.020005211008547" lowerBound="8.825811839080336" meanValue="9.124019434455988" simulationTime="4938.713274153426" upperBound="9.42222702983164"/>
+<sample lastIntervalAvgValue="8.961660719378726" lowerBound="8.77174136021819" meanValue="9.022237058390749" simulationTime="5298.668193573861" upperBound="9.272732756563308"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="20480" discardedSamples="20015" finalValue="4.035081444528593" logFile="/home/2014102150/Área de Trabalho/PROC ESTOS/Modelo 2/Serviço_Queue Time.csv" name="Serviço_Queue Time" nodeType="station" precision="0.03" referenceClass="" referenceStation="Serviço" state="1" type="1">
+<sample lastIntervalAvgValue="4.204787766654888" meanValue="4.204787766654888" simulationTime="1962.3945409431078"/>
+<sample lastIntervalAvgValue="4.056230022117615" meanValue="4.114250296749481" simulationTime="4938.713274153426"/>
+<sample lastIntervalAvgValue="4.016376063960505" meanValue="4.0773847989724885" simulationTime="7886.534414376363"/>
+<sample lastIntervalAvgValue="3.8556308007408666" meanValue="4.0247015835674" simulationTime="10231.89175480638"/>
+<sample lastIntervalAvgValue="4.024638860636991" meanValue="4.024691115603246" simulationTime="12285.837356816743"/>
+<sample lastIntervalAvgValue="4.04119105630246" lowerBound="3.9348076620295434" meanValue="4.035081444528593" simulationTime="20394.55726034903" upperBound="4.1353552270276435"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="19200" discardedSamples="20015" finalValue="4.544040570988004" logFile="/home/2014102150/Área de Trabalho/PROC ESTOS/Modelo 2/System Response Time.csv" name="System Response Time" nodeType="" precision="0.03" referenceClass="" referenceStation="" state="1" type="8">
+<sample lastIntervalAvgValue="4.724638452892239" meanValue="4.724638452892239" simulationTime="1962.3945409431078"/>
+<sample lastIntervalAvgValue="4.562302609539772" meanValue="4.625693772973787" simulationTime="4938.713274153426"/>
+<sample lastIntervalAvgValue="4.52072523824841" meanValue="4.586153569742814" simulationTime="7886.534414376363"/>
+<sample lastIntervalAvgValue="4.341401332743827" meanValue="4.5279945030924775" simulationTime="10232.176915849954"/>
+<sample lastIntervalAvgValue="4.5288352636359095" meanValue="4.528134790703657" simulationTime="12285.837356816743"/>
+<sample lastIntervalAvgValue="4.55292625938125" lowerBound="4.430264102001523" meanValue="4.544040570988004" simulationTime="19763.341820892358" upperBound="4.657817039974486"/>
+</measure>
+</results>
+</archive>
